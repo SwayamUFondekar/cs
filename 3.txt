@@ -1,0 +1,17 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+iris = load_iris()
+df = pd.DataFrame(PCA(n_components=2).fit_transform(iris.data), columns=['PC1', 'PC2'])
+df['Label'] = iris.target
+plt.figure(figsize=(8, 6))
+for i, (name, color) in enumerate(zip(iris.target_names, ['r', 'g', 'b'])):
+    subset = df[df.Label == i]
+    plt.scatter(subset.PC1, subset.PC2, label=name, color=color)
+plt.title('PCA on Iris Dataset');
+plt.xlabel('Principle component 1'); 
+plt.ylabel('Principle component 2');
+plt.legend();
+plt.grid();
+plt.show()
